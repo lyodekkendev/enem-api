@@ -8,9 +8,8 @@ on:
 jobs:
   deploy:
     name: Deploy Worker to Cloudflare
-    # Prevent the first public push from deploying with placeholder D1 config.
-    # Enable explicitly after provisioning the dedicated D1 and configuring secrets.
-    if: github.event_name == 'workflow_dispatch' && vars.CLOUDFLARE_DEPLOY_ENABLED == 'true'
+    # Enable after provisioning the dedicated D1 database and configuring secrets/variables.
+    if: vars.CLOUDFLARE_DEPLOY_ENABLED == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,8 +22,25 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Configure D1 database ID
+        shell: bash
+        env:
+          D1_DATABASE_ID: ${{ vars.D1_DATABASE_ID }}
+        run: |
+          if [[ -z "$D1_DATABASE_ID" ]]; then
+            echo "Repository variable D1_DATABASE_ID is required." >&2
+            exit 1
+          fi
+          node -e 'const fs=require("node:fs"); const p="wrangler.jsonc"; const s=fs.readFileSync(p,"utf8"); fs.writeFileSync(p,s.replace("placeholder-d1-id-configurado-no-ci", process.env.D1_DATABASE_ID));'
+
+      - name: Initialize D1 schema
+        run: bunx wrangler d1 execute enem-api-public --remote --file=./scripts/schema.sql
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+
       - name: Deploy Worker
         run: bunx wrangler deploy --minify
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}

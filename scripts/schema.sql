@@ -1,9 +1,6 @@
 -- Schema D1 para a ENEM API pública (isolada)
 
-DROP TABLE IF EXISTS questions;
-DROP TABLE IF EXISTS exams;
-
-CREATE TABLE exams (
+CREATE TABLE IF NOT EXISTS exams (
     id TEXT PRIMARY KEY,
     year INTEGER NOT NULL,
     day INTEGER NOT NULL,
@@ -13,9 +10,9 @@ CREATE TABLE exams (
     created_at TEXT NOT NULL DEFAULT (CURRENT_TIMESTAMP)
 );
 
-CREATE INDEX idx_exams_year ON exams(year);
+CREATE INDEX IF NOT EXISTS idx_exams_year ON exams(year);
 
-CREATE TABLE questions (
+CREATE TABLE IF NOT EXISTS questions (
     id TEXT PRIMARY KEY,
     exam_id TEXT NOT NULL,
     year INTEGER NOT NULL,
@@ -34,5 +31,5 @@ CREATE TABLE questions (
     FOREIGN KEY (exam_id) REFERENCES exams(id)
 );
 
-CREATE INDEX idx_questions_search ON questions(year, area, day, question_number);
-CREATE INDEX idx_questions_exam ON questions(exam_id);
+CREATE INDEX IF NOT EXISTS idx_questions_search ON questions(year, area, day, question_number);
+CREATE INDEX IF NOT EXISTS idx_questions_exam ON questions(exam_id);

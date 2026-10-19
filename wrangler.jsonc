@@ -8,6 +8,12 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-10-19",
   "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    {
+      "pattern": "enem-api.prepvestibular.ia.br",
+      "custom_domain": true
+    }
+  ],
   "d1_databases": [
     {
       "binding": "DB",
