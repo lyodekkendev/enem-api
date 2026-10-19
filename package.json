@@ -1,0 +1,26 @@
+{
+  "name": "enem-api",
+  "version": "0.1.0",
+  "description": "API REST pública e independente para consulta de provas e questões do ENEM",
+  "private": false,
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "db:migrate:local": "wrangler d1 execute enem-api-public --local --file=./scripts/schema.sql",
+    "db:seed:local": "wrangler d1 execute enem-api-public --local --file=./scripts/seed.sql"
+  },
+  "dependencies": {
+    "hono": "^4.6.14"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241230.0",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "wrangler": "^3.99.0"
+  }
+}

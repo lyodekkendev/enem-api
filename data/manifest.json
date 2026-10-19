@@ -1,0 +1,32 @@
+{
+  "version": "2026.10.1",
+  "updatedAt": "2026-10-19T14:00:00Z",
+  "source": "Inep",
+  "status": "curated_metadata",
+  "editions": [
+    {
+      "year": 2024,
+      "days": [
+        1,
+        2
+      ],
+      "booklets": [
+        "azul",
+        "amarelo"
+      ],
+      "verified": true
+    },
+    {
+      "year": 2023,
+      "days": [
+        1,
+        2
+      ],
+      "booklets": [
+        "azul",
+        "cinza"
+      ],
+      "verified": true
+    }
+  ]
+}
