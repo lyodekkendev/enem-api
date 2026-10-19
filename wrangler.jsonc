@@ -18,7 +18,7 @@
     {
       "binding": "DB",
       "database_name": "enem-api-public",
-      "database_id": "placeholder-d1-id-configurado-no-ci"
+      "database_id": "6e11e71a-81f7-42d6-942d-b4dc46f14e25"
     }
   ],
   "observability": {
