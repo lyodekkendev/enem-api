@@ -44,6 +44,29 @@ describe('ENEM API Smoke Tests', () => {
     expect(body.disclaimer).toContain('independente');
   });
 
+  it('GET /openapi.json retorna especificação OpenAPI 3.1 válida', async () => {
+    const res = await app.request('/openapi.json');
+    expect(res.status).toBe(200);
+    const body = await res.json() as any;
+    expect(body.openapi).toBe('3.1.0');
+    expect(body.info.title).toBe('ENEM API');
+  });
+
+  it('GET /docs retorna página HTML da documentação Scalar', async () => {
+    const res = await app.request('/docs');
+    expect(res.status).toBe(200);
+    expect(res.headers.get('content-type')).toContain('text/html');
+    const html = await res.text();
+    expect(html).toContain('@scalar/api-reference');
+    expect(html).toContain('/openapi.json');
+  });
+
+  it('GET / redireciona para /docs', async () => {
+    const res = await app.request('/');
+    expect(res.status).toBe(302);
+    expect(res.headers.get('location')).toBe('/docs');
+  });
+
   it('GET /v1/questions com filtro inválido retorna 400', async () => {
     const res = await app.request('/v1/questions?year=invalid', {}, { DB: mockDb as any });
     expect(res.status).toBe(400);
