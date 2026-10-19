@@ -23,7 +23,7 @@ API REST pública, versionada e somente de leitura, construída sobre [Cloudflar
 
 ## 🚀 Endpoints Principais (v1)
 
-Base URL: `https://enem-api.prepvestibular.ia.br` (ou `http://localhost:8787` em desenvolvimento)
+Base URL planejada: `https://enem-api.prepvestibular.ia.br` (domínio/deploy ainda pendentes). Desenvolvimento local: `http://localhost:8787`.
 
 | Método | Endpoint | Descrição |
 |---|---|---|
@@ -55,8 +55,8 @@ Base URL: `https://enem-api.prepvestibular.ia.br` (ou `http://localhost:8787` em
   "pagination": {
     "page": 1,
     "limit": 20,
-    "total": 45,
-    "hasNext": true
+    "total": 1,
+    "hasNext": false
   },
   "meta": {
     "apiVersion": "v1",
@@ -70,30 +70,32 @@ Base URL: `https://enem-api.prepvestibular.ia.br` (ou `http://localhost:8787` em
 ## 🛠️ Desenvolvimento Local
 
 ### Pré-requisitos
-- [Node.js](https://nodejs.org/) v20+ ou [Bun](https://bun.sh/)
+- [Bun](https://bun.sh/) (o repositório fixa dependências em `bun.lock`)
 - Conta Cloudflare (opcional para rodar localmente)
 
 ### Instalação
 ```bash
 # 1. Instalar dependências
-npm install
+bun install --frozen-lockfile
 
 # 2. Criar tabelas no D1 local
-npm run db:migrate:local
+bun run db:migrate:local
 
 # 3. Popular com dados iniciais de exemplo
-npm run db:seed:local
+bun run db:seed:local
 
 # 4. Iniciar servidor local
-npm run dev
+bun run dev
 ```
 
 A API estará rodando em `http://localhost:8787`.
 
+> O conjunto incluído é uma amostra de metadados, não uma coleção completa de questões. O endpoint não retorna enunciados, alternativas, imagens ou gabaritos no dataset atual. O deploy público ainda não está habilitado. Consulte [DATA-LICENSE.md](DATA-LICENSE.md) e o [manifesto do dataset](data/manifest.json) para escopo e proveniência.
+
 ### Testes
 ```bash
-npm run test
-npm run typecheck
+bun run test
+bun run typecheck
 ```
 
 ---

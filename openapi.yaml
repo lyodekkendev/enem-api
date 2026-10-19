@@ -4,13 +4,13 @@ info:
   description: >
     API REST pública e independente para descoberta, consulta de provas e catálogo
     de questões do Exame Nacional do Ensino Médio (ENEM). Projeto comunitário não oficial.
-  version: 1.0.0
+  version: 0.1.0
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
 servers:
   - url: https://enem-api.prepvestibular.ia.br
-    description: Servidor de Produção (domínio comunitário)
+    description: Domínio planejado; deploy público pendente
   - url: http://localhost:8787
     description: Servidor de Desenvolvimento Local
 

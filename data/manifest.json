@@ -2,7 +2,7 @@
   "version": "2026.10.1",
   "updatedAt": "2026-10-19T14:00:00Z",
   "source": "Inep",
-  "status": "curated_metadata",
+  "status": "sample_metadata_only",
   "editions": [
     {
       "year": 2024,
@@ -14,7 +14,7 @@
         "azul",
         "amarelo"
       ],
-      "verified": true
+      "verified": false
     },
     {
       "year": 2023,
@@ -26,7 +26,7 @@
         "azul",
         "cinza"
       ],
-      "verified": true
+      "verified": false
     }
   ]
 }
